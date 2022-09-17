@@ -47,27 +47,28 @@
         fetch(`${apiUrl}/qr`, {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*'
             },
             method: "POST",
             body: JSON.stringify({qr: qr})
         })
     }
     async function getQr() {
-        let json = await fetch(`${apiUrl}/qr`, {
+        let response = await fetch(`${apiUrl}/qr`, {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
             },
         })
-        console.log("got qr:", json.body)
-        qrcode.makeCode(json['qr']); // make another code.
+        let j = await response.json();
+        console.log("got qr:", j.qr)
+        qrcode.makeCode(j.qr); // make another code.
     }
 
     let qrcode = new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
-    setInterval(() => {
-        getQr()
-    }, 1000)
+    setInterval(getQr, 200)
 
     function tick() {
         loadingMessage.innerText = "⌛ Loading video..."
