@@ -41,7 +41,7 @@
         requestAnimationFrame(tick);
     });
 
-    const apiUrl = 'http://abaam-server.herokuapp.com'
+    const apiUrl = ''
     function postQr(qr) {
         console.log("sending qr", qr)
         fetch(`${apiUrl}/qr`, {
@@ -54,13 +54,12 @@
         })
     }
     async function getQr() {
-        let res = await fetch(`${apiUrl}/qr`, {
+        let json = await fetch(`${apiUrl}/qr`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
-        let json = res['qr']
         console.log("got qr:", json)
         qrcode.makeCode(json['qr']); // make another code.
     }
