@@ -60,7 +60,7 @@
                 'Content-Type': 'application/json'
             },
         })
-        console.log("got qr:", json)
+        console.log("got qr:", json.body)
         qrcode.makeCode(json['qr']); // make another code.
     }
 
